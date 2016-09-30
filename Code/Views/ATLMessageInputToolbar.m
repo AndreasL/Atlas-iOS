@@ -32,7 +32,6 @@ NSString *const ATLMessageInputToolbarDidChangeHeightNotification = @"ATLMessage
 @property (nonatomic) CGFloat textViewMaxHeight;
 @property (nonatomic) CGFloat buttonCenterY;
 @property (nonatomic) BOOL firstAppearance;
-@property (nonatomic, strong) UIButton *actionButton;
 
 @end
 
