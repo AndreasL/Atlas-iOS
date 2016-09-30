@@ -48,6 +48,11 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
  */
 - (void)messageInputToolbar:(ATLMessageInputToolbar *)messageInputToolbar didTapLeftAccessoryButton:(UIButton *)leftAccessoryButton;
 
+/**
+ @abstract Notifies the receiver that the action button was tapped.
+ */
+- (void)messageInputToolbar:(ATLMessageInputToolbar *)messageInputToolbar didTapActionButton:(UIButton *)actionButton;
+
 @optional
 
 /**
@@ -150,7 +155,8 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
   @abstract The margin on top and bottom of the textInputView.
   @default 7.0f.
   */
-@property (nonatomic) CGFloat verticalMargin;
+@property (nonatomic) CGFloat topVerticalMargin;
+@property (nonatomic) CGFloat bottomVerticalMargin;
 
 /**
  @abstract The delegate object for the view.

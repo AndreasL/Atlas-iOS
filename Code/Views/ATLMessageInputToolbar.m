@@ -32,6 +32,7 @@ NSString *const ATLMessageInputToolbarDidChangeHeightNotification = @"ATLMessage
 @property (nonatomic) CGFloat textViewMaxHeight;
 @property (nonatomic) CGFloat buttonCenterY;
 @property (nonatomic) BOOL firstAppearance;
+@property (nonatomic, strong) UIButton *actionButton;
 
 @end
 
@@ -46,7 +47,8 @@ NSString *const ATLMessageInputToolbarSendButton  = @"Message Input Toolbar Send
 // Compose View Margin Constants
 static CGFloat const ATLLeftButtonHorizontalMargin = 6.0f;
 static CGFloat const ATLRightButtonHorizontalMargin = 4.0f;
-static CGFloat const ATLVerticalMargin = 7.0f;
+static CGFloat const ATLTopVerticalMargin = 7.0f;
+static CGFloat const ATLBottomVerticalMargin = 37.0f;
 
 // Compose View Button Constants
 static CGFloat const ATLLeftAccessoryButtonWidth = 40.0f;
@@ -91,13 +93,22 @@ static CGFloat const ATLButtonHeight = 28.0f;
         self.textInputView.layer.cornerRadius = 5.0f;
         [self addSubview:self.textInputView];
         
-        self.verticalMargin = ATLVerticalMargin;
+        self.topVerticalMargin = ATLTopVerticalMargin;
+        self.bottomVerticalMargin = ATLBottomVerticalMargin;
         
         self.rightAccessoryButton = [[UIButton alloc] init];
         [self.rightAccessoryButton addTarget:self action:@selector(rightAccessoryButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         self.rightAccessoryButtonTitle = @"Send";
         [self addSubview:self.rightAccessoryButton];
         [self configureRightAccessoryButtonState];
+        
+        self.actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.actionButton setBackgroundColor:UIColor.darkGrayColor];
+        [self.actionButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        [self.actionButton setTitle:@"Action Button" forState:UIControlStateNormal];
+        [self.actionButton.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
+        [self.actionButton addTarget:self action:@selector(actionButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.actionButton];
         
         // Calling sizeThatFits: or contentSize on the displayed UITextView causes the cursor's position to momentarily appear out of place and prevent scrolling to the selected range. So we use another text view for height calculations.
         self.dummyTextView = [[ATLMessageComposeTextView alloc] init];
@@ -150,14 +161,14 @@ static CGFloat const ATLButtonHeight = 28.0f;
     rightButtonFrame.origin.x = CGRectGetWidth(frame) - CGRectGetWidth(rightButtonFrame) - ATLRightButtonHorizontalMargin;
 
     textViewFrame.origin.x = CGRectGetMaxX(leftButtonFrame) + ATLLeftButtonHorizontalMargin;
-    textViewFrame.origin.y = self.verticalMargin;
+    textViewFrame.origin.y = self.topVerticalMargin;
     textViewFrame.size.width = CGRectGetMinX(rightButtonFrame) - CGRectGetMinX(textViewFrame) - ATLRightButtonHorizontalMargin;
 
     self.dummyTextView.attributedText = self.textInputView.attributedText;
     CGSize fittedTextViewSize = [self.dummyTextView sizeThatFits:CGSizeMake(CGRectGetWidth(textViewFrame), MAXFLOAT)];
     textViewFrame.size.height = ceil(MIN(fittedTextViewSize.height, self.textViewMaxHeight));
 
-    frame.size.height = CGRectGetHeight(textViewFrame) + self.verticalMargin * 2;
+    frame.size.height = CGRectGetHeight(textViewFrame) + self.topVerticalMargin + self.bottomVerticalMargin;
     frame.origin.y -= frame.size.height - CGRectGetHeight(self.frame);
  
     // Only calculate button centerY once to anchor it to bottom of bar.
@@ -172,6 +183,8 @@ static CGFloat const ATLButtonHeight = 28.0f;
     self.leftAccessoryButton.frame = leftButtonFrame;
     self.rightAccessoryButton.frame = rightButtonFrame;
     self.textInputView.frame = textViewFrame;
+    
+    self.actionButton.frame = CGRectMake(ATLLeftButtonHorizontalMargin + 5.0f, 7.0f + self.textInputView.frame.origin.y + self.textInputView.frame.size.height, 200.0f, 22.0f);
 
     // Setting one's own frame like this is a no-no but seems to be the lesser of evils when working around the layout issues mentioned above.
     self.frame = frame;
@@ -288,6 +301,11 @@ static CGFloat const ATLButtonHeight = 28.0f;
     self.mediaAttachments = nil;
     self.attributedStringForMessageParts = nil;
     [self configureRightAccessoryButtonState];
+}
+
+- (void)actionButtonTapped
+{
+    [self.inputToolBarDelegate messageInputToolbar:self didTapActionButton:self.actionButton];
 }
 
 #pragma mark - UITextViewDelegate
