@@ -102,7 +102,6 @@ static CGFloat const ATLButtonHeight = 28.0f;
         [self configureRightAccessoryButtonState];
         
         self.actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.actionButton setBackgroundColor:UIColor.darkGrayColor];
         [self.actionButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [self.actionButton setTitle:@"Action Button" forState:UIControlStateNormal];
         [self.actionButton.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
@@ -175,7 +174,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
         self.buttonCenterY = (CGRectGetHeight(frame) - CGRectGetHeight(leftButtonFrame)) / 2;
     }
     leftButtonFrame.origin.y = frame.size.height - leftButtonFrame.size.height - self.buttonCenterY;
-    rightButtonFrame.origin.y = frame.size.height - rightButtonFrame.size.height - self.buttonCenterY;
+    rightButtonFrame.origin.y = frame.size.height - rightButtonFrame.size.height - self.buttonCenterY - 16.0f;
     
     BOOL heightChanged = CGRectGetHeight(textViewFrame) != CGRectGetHeight(self.textInputView.frame);
 
@@ -183,8 +182,11 @@ static CGFloat const ATLButtonHeight = 28.0f;
     self.rightAccessoryButton.frame = rightButtonFrame;
     self.textInputView.frame = textViewFrame;
     
-    self.actionButton.frame = CGRectMake(ATLLeftButtonHorizontalMargin + 5.0f, 7.0f + self.textInputView.frame.origin.y + self.textInputView.frame.size.height, 200.0f, 22.0f);
-
+    self.actionButton.frame = CGRectMake(ATLLeftButtonHorizontalMargin + 5.0f, 7.0f + self.textInputView.frame.origin.y + self.textInputView.frame.size.height, 202.0f, 22.0f);
+    [self.actionButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 5.0f, 0, 0)];
+    [self.actionButton sizeToFit];
+    self.actionButton.frame = CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y, self.actionButton.frame.size.width + 5.0f, 22.0f);
+    
     // Setting one's own frame like this is a no-no but seems to be the lesser of evils when working around the layout issues mentioned above.
     self.frame = frame;
 
