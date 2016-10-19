@@ -33,7 +33,7 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
 //---------------------------------
 
 /**
- @abstract The `ATLMessageInputToolbarDelegate` notifies its receiver when buttons have been 
+ @abstract The `ATLMessageInputToolbarDelegate` notifies its receiver when buttons have been
  tapped.
  */
 @protocol ATLMessageInputToolbarDelegate <NSObject>
@@ -91,16 +91,18 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
  */
 - (void)insertMediaAttachment:(ATLMediaAttachment *)mediaAttachment withEndLineBreak:(BOOL)endLineBreak;
 
+- (void)setActionButtonHidden:(BOOL)hidden;
+
 //-----------------------------
 // UI Customization
 //-----------------------------
 
 /**
- @abstract The left accessory button for the view. 
+ @abstract The left accessory button for the view.
  @discussion By default, the button displays a camera icon. If set to `nil` the `textInputView` will expand to the left edge of the toolbar.
  */
 @property (nonatomic) UIButton * _Nullable leftAccessoryButton;
- 
+
 /**
  @abstract The right accessory button for the view.
  */
@@ -140,7 +142,7 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
 @property (nonatomic) UIImage *rightAccessoryImage;
 
 /**
- @abstract Determines whether or not the right accessory button displays an icon. 
+ @abstract Determines whether or not the right accessory button displays an icon.
  @disucssion If NO, the right accessory button will display the text `SEND` at all times.
  @default YES
  */
@@ -157,6 +159,7 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
   */
 @property (nonatomic) CGFloat topVerticalMargin;
 @property (nonatomic) CGFloat bottomVerticalMargin;
+@property (nonatomic) CGFloat sendButtonOffset;
 
 /**
  @abstract The delegate object for the view.
