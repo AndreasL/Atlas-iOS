@@ -1068,6 +1068,7 @@
 				TargetAttributes = {
 					253C29A41C3C9D7100ED1549 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 2KK8H7938A;
 					};
 					D0294DD71A93F33900702856 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1082,6 +1083,7 @@
 					};
 					D6F57E531A8BE4B500B62BD9 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 2KK8H7938A;
 					};
 					D6F57E6B1A8BE4B500B62BD9 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1646,6 +1648,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2KK8H7938A;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1706,6 +1709,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2KK8H7938A;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2086,6 +2090,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 2KK8H7938A;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2133,6 +2138,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 2KK8H7938A;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

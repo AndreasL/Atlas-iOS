@@ -42,6 +42,8 @@
     self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
     [self configureTitle];
     
+    [self.messageInputToolbar setLeftAccessoryButton:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidTapLink:) name:ATLUserDidTapLinkNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidTapPhoneNumber:) name:ATLUserDidTapPhoneNumberNotification object:nil];
 }
