@@ -186,6 +186,12 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
  */
 @property (nonatomic, strong) UIButton *actionButton;
 
+/**
+ @abstract Definable action button below text input view.
+ @discussion Set title via conversation view and action via didTapActionButton delegate method.
+ */
+@property (nonatomic, strong) UILabel *statusLabel;
+
 //-------------------
 // Layout Accessories
 //-------------------

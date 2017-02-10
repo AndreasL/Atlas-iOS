@@ -32,6 +32,7 @@ NSString *const ATLMessageInputToolbarDidChangeHeightNotification = @"ATLMessage
 @property (nonatomic) CGFloat textViewMaxHeight;
 @property (nonatomic) CGFloat buttonCenterY;
 @property (nonatomic) BOOL firstAppearance;
+@property (nonatomic) BOOL prominentAction;
 
 @end
 
@@ -47,8 +48,8 @@ NSString *const ATLMessageInputToolbarSendButton  = @"Message Input Toolbar Send
 static CGFloat const ATLLeftButtonHorizontalMargin = 6.0f;
 static CGFloat const ATLRightButtonHorizontalMargin = 4.0f;
 static CGFloat const ATLTopVerticalMargin = 7.0f;
-//static CGFloat const ATLBottomVerticalMargin = 37.0f;
-static CGFloat const ATLBottomVerticalMargin = 75.0f;
+static CGFloat const ATLBottomVerticalMargin = 37.0f;
+static CGFloat const ATLBottomVerticalMarginExtended = 75.0f;
 static CGFloat const ATLSendButtonPlacementOffset = 16.0f;
 
 // Compose View Button Constants
@@ -111,11 +112,19 @@ static CGFloat const ATLButtonHeight = 28.0f;
         [self.actionButton.titleLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
         [self.actionButton addTarget:self action:@selector(actionButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.actionButton];
+        
+        self.statusLabel = [[UILabel alloc] init];
+        self.statusLabel.text = @"Booked";
+        [self.statusLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
+        self.statusLabel.textAlignment = NSTextAlignmentRight;
+        [self addSubview:self.statusLabel];
 
         // Calling sizeThatFits: or contentSize on the displayed UITextView causes the cursor's position to momentarily appear out of place and prevent scrolling to the selected range. So we use another text view for height calculations.
         self.dummyTextView = [[ATLMessageComposeTextView alloc] init];
         self.maxNumberOfLines = 8;
         self.barTintColor = UIColor.whiteColor;
+        
+        // [self setActionButtonProminent:YES];
     }
     return self;
 }
@@ -130,6 +139,21 @@ static CGFloat const ATLButtonHeight = 28.0f;
         self.sendButtonOffset = ATLSendButtonPlacementOffset;
     }
 
+    [self layoutSubviews];
+}
+
+- (void)setActionButtonProminent:(BOOL)prominent
+{
+    if (prominent) {
+        self.prominentAction = YES;
+        self.statusLabel.hidden = YES;
+        self.bottomVerticalMargin = ATLBottomVerticalMarginExtended;
+    } else {
+        self.prominentAction = NO;
+        self.statusLabel.hidden = NO;
+        self.bottomVerticalMargin = ATLBottomVerticalMargin;
+    }
+    
     [self layoutSubviews];
 }
 
@@ -200,6 +224,13 @@ static CGFloat const ATLButtonHeight = 28.0f;
     self.rightAccessoryButton.frame = rightButtonFrame;
     self.textInputView.frame = textViewFrame;
 
+    self.statusLabel.frame = CGRectMake(ATLLeftButtonHorizontalMargin + 5.0f, 10.0f + self.textInputView.frame.origin.y + self.textInputView.frame.size.height, 202.0f, 22.0f);
+    
+    CGRect statusLabelFrame = self.statusLabel.frame;
+    statusLabelFrame.origin.x = CGRectGetWidth(frame) - CGRectGetWidth(statusLabelFrame) - ATLLeftButtonHorizontalMargin;
+    self.statusLabel.frame = statusLabelFrame;
+    // [self.statusLabel sizeToFit];
+    
     self.actionButton.frame = CGRectMake(ATLLeftButtonHorizontalMargin + 5.0f, 7.0f + self.textInputView.frame.origin.y + self.textInputView.frame.size.height, 202.0f, 22.0f);
     [self.actionButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self.actionButton sizeToFit];
@@ -207,14 +238,13 @@ static CGFloat const ATLButtonHeight = 28.0f;
     // --
     // self.actionButton.frame = CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y, self.actionButton.frame.size.width + 5.0f, 22.0f);
     
-    // if full size
-    self.actionButton.frame = CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y+2.0f, self.frame.size.width - self.actionButton.frame.origin.x*2, 53.0f);
-    self.actionButton.layer.cornerRadius = 6.0f;
-    self.actionButton.backgroundColor = [UIColor colorWithRed:18/255.0f green:193/255.0f blue:153/255.0f alpha:1.0f];
-    [self.actionButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-    [self.actionButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateHighlighted];
-
-    // --
+    if (self.prominentAction == YES) {
+        self.actionButton.frame = CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y+2.0f, self.frame.size.width - self.actionButton.frame.origin.x*2, 53.0f);
+        self.actionButton.layer.cornerRadius = 6.0f;
+        self.actionButton.backgroundColor = [UIColor colorWithRed:18/255.0f green:193/255.0f blue:153/255.0f alpha:1.0f];
+        [self.actionButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        [self.actionButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateHighlighted];
+    }
     
     // Setting one's own frame like this is a no-no but seems to be the lesser of evils when working around the layout issues mentioned above.
     self.frame = frame;
