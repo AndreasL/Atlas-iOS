@@ -93,6 +93,8 @@ extern NSString *const ATLMessageInputToolbarAccessibilityLabel;
 
 - (void)setActionButtonHidden:(BOOL)hidden;
 
+- (void)setActionButtonProminent:(BOOL)prominent;
+
 //-----------------------------
 // UI Customization
 //-----------------------------
