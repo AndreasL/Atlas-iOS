@@ -117,13 +117,13 @@ static CGFloat const ATLButtonHeight = 28.0f;
         self.actionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.actionButton setTitleColor:UIColor.lightGrayColor forState:UIControlStateNormal];
         [self.actionButton setTitleColor:UIColor.grayColor forState:UIControlStateHighlighted];
-        [self.actionButton setTitle:@"Action Button" forState:UIControlStateNormal];
+        [self.actionButton setTitle:nil forState:UIControlStateNormal];
         [self.actionButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
         [self.actionButton addTarget:self action:@selector(actionButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.actionButton];
         
         self.statusLabel = [[UILabel alloc] init];
-        self.statusLabel.text = @"Booked";
+        self.statusLabel.text = nil;
         [self.statusLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
         self.statusLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:self.statusLabel];
