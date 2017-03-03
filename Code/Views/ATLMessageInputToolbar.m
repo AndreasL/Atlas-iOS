@@ -30,6 +30,7 @@ NSString *const ATLMessageInputToolbarDidChangeHeightNotification = @"ATLMessage
 @property (nonatomic, copy) NSAttributedString *attributedStringForMessageParts;
 @property (nonatomic) UITextView *dummyTextView;
 @property (nonatomic) CGFloat textViewMaxHeight;
+@property (nonatomic) CGFloat textViewMinScrollHeight;
 @property (nonatomic) CGFloat buttonCenterY;
 @property (nonatomic) BOOL firstAppearance;
 @property (nonatomic) BOOL prominentAction;
@@ -315,6 +316,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
 {
     _maxNumberOfLines = maxNumberOfLines;
     self.textViewMaxHeight = self.maxNumberOfLines * self.textInputView.font.lineHeight;
+    self.textViewMinScrollHeight = (self.maxNumberOfLines - 1) * self.textInputView.font.lineHeight;
     [self setNeedsLayout];
 }
 
@@ -428,18 +430,21 @@ static CGFloat const ATLButtonHeight = 28.0f;
     }
 
     [self setNeedsLayout];
-
+    
+    self.textInputView.scrollEnabled = self.textInputView.frame.size.height > self.textViewMinScrollHeight;
     CGRect line = [textView caretRectForPosition:textView.selectedTextRange.start];
-    CGFloat overflow = line.origin.y + line.size.height - (textView.contentOffset.y + textView.bounds.size.height - textView.contentInset.bottom - textView.contentInset.top);
-    if (overflow > 0) {
-        // We are at the bottom of the visible text and introduced a line feed, scroll down. Scroll caret to visible area
-        CGPoint offset = textView.contentOffset;
-        offset.y += overflow;
-
-        // Cannot animate with setContentOffset:animated: or caret will not appear
-        [UIView animateWithDuration:.2 animations:^{
-            [textView setContentOffset:offset];
-        }];
+    if (!CGSizeEqualToSize(line.size, CGSizeZero)) {
+        CGFloat overflow = line.origin.y + line.size.height - (textView.contentOffset.y + textView.bounds.size.height - textView.contentInset.bottom - textView.contentInset.top);
+        if (overflow > 0) {
+            // We are at the bottom of the visible text and introduced a line feed, scroll down. Scroll caret to visible area
+            CGPoint offset = textView.contentOffset;
+            offset.y += overflow;
+            
+            // Cannot animate with setContentOffset:animated: or caret will not appear
+            [UIView animateWithDuration:.2 animations:^{
+                [textView setContentOffset:offset];
+            }];
+        }
     }
 }
 
