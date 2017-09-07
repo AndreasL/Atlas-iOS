@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  @abstract Informs the delegate that a search has been made with the following search string.
  @param participantTableViewController The participant table view controller in which the search was made.
- @param searchString The search string that was just used for search.
+ @param searchText The search string that was just used for search.
  @param completion The completion block that should be called when the results are fetched from the search.
  */
 - (void)participantTableViewController:(ATLParticipantTableViewController *)participantTableViewController didSearchWithString:(NSString *)searchText completion:(void (^)(NSSet *filteredParticipants))completion;
@@ -86,6 +86,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) ATLParticipantPickerSortType sortType;
 
+/**
+ @abstract Defines whether the avatar item is shown in each cell.
+ @default `YES`.
+ */
+@property (nonatomic, assign) BOOL shouldShowAvatarItem;
+
+/**
+ @abstract Defines whether presence status is enabled for each cell's avatar item.
+ @default `YES`.
+ */
+@property (nonatomic, assign) BOOL presenceStatusEnabled;
 
 /**
  @abstract The delegate for the participant table view controller.

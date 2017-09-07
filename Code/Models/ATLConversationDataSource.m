@@ -77,7 +77,7 @@ NSInteger const ATLQueryControllerPaginationWindow = 30;
             NSLog(@"LayerKit failed to create a query controller with error: %@", error);
             return nil;
         }
-        _queryController.updatableProperties = [NSSet setWithObjects:@"parts.transferStatus", @"recipientStatusByUserID", @"sentAt", nil];
+        _queryController.updatableProperties = [NSSet setWithObjects:@"parts.transferStatus", @"recipientStatusByUserID", @"sentAt", @"sender.presenceStatus", nil];
         _queryController.paginationWindow = -numberOfMessagesToDisplay;
         
         self.conversation = LYRConversationDataSourceConversationFromPredicate(query.predicate);
@@ -114,7 +114,9 @@ NSInteger const ATLQueryControllerPaginationWindow = 30;
 
 - (void)finishExpandingPaginationWindow
 {
-    NSUInteger numberOfMessagesToDisplay = MIN(-self.queryController.paginationWindow + ATLQueryControllerPaginationWindow, self.queryController.totalNumberOfObjects);
+    NSUInteger numberOfMessagesAvailable = MIN(-self.queryController.paginationWindow + ATLQueryControllerPaginationWindow, self.queryController.totalNumberOfObjects);
+    NSUInteger numberOfMessagesToDisplay = MAX(1, numberOfMessagesAvailable);
+    
     self.queryController.paginationWindow = -numberOfMessagesToDisplay;
     self.expandingPaginationWindow = NO;
 }

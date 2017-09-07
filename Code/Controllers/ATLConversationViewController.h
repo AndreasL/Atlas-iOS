@@ -19,7 +19,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@import LayerKit;
+#import <LayerKit/LayerKit.h>
 #import <MapKit/MapKit.h>
 #import "ATLParticipant.h"
 #import "ATLBaseConversationViewController.h"
@@ -43,14 +43,14 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 /**
  @abstract Informs the delegate that a user successfully sent an `LYRMessage` object.
- @param conversationViewController The `ATLConversationViewController` in which the message was sent.
+ @param viewController The `ATLConversationViewController` in which the message was sent.
  @param message The `LYRMessage` object that was sent via Layer.
  */
 - (void)conversationViewController:(ATLConversationViewController *)viewController didSendMessage:(LYRMessage *)message;
 
 /**
  @abstract Informs the delegate that an `LYRMessage` object send attempt failed.
- @param conversationViewController The `ATLConversationViewController` in which the message failed to send.
+ @param viewController The `ATLConversationViewController` in which the message failed to send.
  @param message The `LYRMessage` object which was attempted to be sent via Layer.
  @param error The `NSError` object describing why send failed.
  */
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  @abstract Informs the delegate that an `LYRMessage` object was tapped.
- @param conversationViewController The `ATLConversationViewController` in which the message failed to send.
+ @param viewController The `ATLConversationViewController` in which the message failed to send.
  @param message The `LYRMessage` object which that was tapped.
  */
 - (void)conversationViewController:(ATLConversationViewController *)viewController didSelectMessage:(LYRMessage *)message;
@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  @abstract Informs the delegate of a cell being configured for the specified message.
- @param viewController The `ATLConversationViewController` where the message cell will appear.
+ @param conversationViewController The `ATLConversationViewController` where the message cell will appear.
  @param cell The `UICollectionViewCell` object that confirms to the `ATLMessagePresenting` protocol that will be displayed in the controller.
  @param message The `LYRMessage` object that will be displayed in the cell.
  @discussion Applications should implement this method if they want add further configuration that is not set up during cell initialization, such as gesture recognizers.
@@ -110,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  @abstract Asks the data source for an object conforming to the `ATLParticipant` protocol for a given identifier.
  @param conversationViewController The `ATLConversationViewController` requesting the object.
- @param participantForIdentifier The participant identifier.
+ @param identity The participant identity.
  @return An object conforming to the `ATLParticipant` protocol.
  */
 - (id<ATLParticipant>)conversationViewController:(ATLConversationViewController *)conversationViewController participantForIdentity:(LYRIdentity *)identity;
@@ -156,7 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion Applications may implement this method to override the default behavior which is described below.
  If this method is not implemented or `nil` is returned, the conversation view controller will default to 1) disabling delivery receipts if there are more than five participants and 2) using an existing conversation between the participants if one already exists.
  */
-- (LYRConversation *)conversationViewController:(ATLConversationViewController *)viewController conversationWithParticipants:(NSSet *)participants;
+- (nullable LYRConversation *)conversationViewController:(ATLConversationViewController *)viewController conversationWithParticipants:(NSSet *)participants;
 
 /**
  @abstract Asks the data source to configure the default query used to fetch content for the controller if necessary.
@@ -278,6 +278,13 @@ NS_ASSUME_NONNULL_BEGIN
  @default `YES`.
  */
 @property (nonatomic) BOOL marksMessagesAsRead;
+
+/**
+ @abstract A Boolean value that determines whether or not the username is shown if there is only one other participant in the conversation.
+ @default `NO`.
+ Should be set before `[super viewDidLoad]` is called.
+ */
+@property (nonatomic) BOOL shouldDisplayUsernameForOneOtherParticipant;
 
 /**
  @abstract A Boolean value that determines whether or not an avatar is shown if there is only one other participant in the conversation.
