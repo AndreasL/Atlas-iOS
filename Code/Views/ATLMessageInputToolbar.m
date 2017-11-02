@@ -299,7 +299,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
     // self.actionButton.frame = CGRectMake(ATLLeftButtonHorizontalMargin + 10.0f, 10.0f + self.textInputView.frame.origin.y + self.textInputView.frame.size.height, 202.0f, 22.0f);
     self.actionButton.frame = CGRectMake(self.actionButton.frame.origin.x, self.actionButton.frame.origin.y+7.0f, (self.frame.size.width - self.actionButton.frame.origin.x*2)-5, 50.0f);
     self.actionButton.layer.cornerRadius = 8.0f;
-    self.actionButton.backgroundColor = [UIColor colorWithRed:18/255.0f green:193/255.0f blue:153/255.0f alpha:1.0f];
+    self.actionButton.backgroundColor = [UIColor colorWithRed:104/255.0f green:59/255.0f blue:189/255.0f alpha:1.0f];
     [self.actionButton setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
     [self.actionButton setTitleColor:[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.7f]forState:UIControlStateHighlighted];
 }
