@@ -229,7 +229,7 @@ static CGFloat const ATLButtonHeight = 28.0f;
     CGSize fittedTextViewSize = [self.dummyTextView sizeThatFits:CGSizeMake(CGRectGetWidth(textViewFrame), MAXFLOAT)];
     textViewFrame.size.height = ceil(MIN(fittedTextViewSize.height, self.textViewMaxHeight));
 
-    frame.size.height = CGRectGetHeight(textViewFrame) + self.verticalMargin * 2 + safeAreaInsets.bottom;
+    frame.size.height = CGRectGetHeight(textViewFrame) + self.topVerticalMargin * 2 + safeAreaInsets.bottom;
     frame.origin.y -= frame.size.height - CGRectGetHeight(self.frame);
 
     // Only calculate button centerY once to anchor it to bottom of bar.
