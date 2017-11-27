@@ -1,5 +1,13 @@
 # Atlas Changelog
 
+## 1.1.4
+
+### Bug fixes
+
+* Fixes UI of `ATLConversationViewController` for iPhone X
+* Fixes a crash in `ATLConversationViewController` when rapidly sending multiple messages by multiple users.
+* Fixes a crash in `ATLConversationViewController` when changing list of participants and sending or receiving message at the same time.
+
 ## 1.1.3
 
 ### Bug Fixes
