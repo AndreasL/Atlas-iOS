@@ -109,7 +109,8 @@ NSInteger const kATLSharedCellTag = 1000;
 {
     self.message = message;
     LYRMessagePart *messagePart = message.parts.firstObject;
-    [self updateBubbleWidth:[[self class] cellSizeForMessage:self.message inView:nil].width];
+    
+    [self updateBubbleWidth:[[self class] cellSizeForMessage:self.message inView:nil shouldFilterMessageContent:self.shouldFilterMessageContent].width];
     if ([self messageContainsTextContent]) {
         [self configureBubbleViewForTextContent];
     } else if ([messagePart.MIMEType isEqualToString:ATLMIMETypeImageJPEG]) {
@@ -130,7 +131,7 @@ NSInteger const kATLSharedCellTag = 1000;
 {
     LYRMessagePart *messagePart = self.message.parts.firstObject;
     NSString *text = [[NSString alloc] initWithData:messagePart.data encoding:NSUTF8StringEncoding];
-    [self.bubbleView updateWithAttributedText:[self attributedStringForText:text]];
+    [self.bubbleView updateWithAttributedText:[self attributedStringForText:[self filterMessage:text]]];
     [self.bubbleView updateProgressIndicatorWithProgress:0.0 visible:NO animated:NO];
     self.accessibilityLabel = [NSString stringWithFormat:@"Message: %@", text];
 }
@@ -393,9 +394,9 @@ NSInteger const kATLSharedCellTag = 1000;
 
 #pragma mark - Cell Height Calculations
 
-+ (CGFloat)cellHeightForMessage:(LYRMessage *)message inView:(UIView *)view
++ (CGFloat)cellHeightForMessage:(LYRMessage *)message inView:(UIView *)view shouldFilterMessageContent:(BOOL)shouldFilterMessageContent
 {
-    CGFloat height = [[self class] cellSizeForMessage:message inView:view].height;
+    CGFloat height = [[self class] cellSizeForMessage:message inView:view shouldFilterMessageContent:shouldFilterMessageContent].height;
     if (height < ATLMessageCellMinimumHeight) height = ATLMessageCellMinimumHeight;
     height = ceil(height);
     return height;
@@ -403,7 +404,7 @@ NSInteger const kATLSharedCellTag = 1000;
 
 #pragma mark - Cell Size Calculations
 
-+ (CGSize)cellSizeForMessage:(LYRMessage *)message inView:(UIView *)view
++ (CGSize)cellSizeForMessage:(LYRMessage *)message inView:(UIView *)view shouldFilterMessageContent:(BOOL)shouldFilterMessageContent
 {
     if ([[self sharedHeightCache] objectForKey:message.identifier]) {
         return [[[self sharedHeightCache] objectForKey:message.identifier] CGSizeValue];
@@ -412,7 +413,7 @@ NSInteger const kATLSharedCellTag = 1000;
     LYRMessagePart *part = message.parts.firstObject;
     CGSize size = CGSizeZero;
     if ([part.MIMEType isEqualToString:ATLMIMETypeTextPlain]) {
-        size = [[self class] cellSizeForTextMessage:message inView:view];
+        size = [[self class] cellSizeForTextMessage:message inView:view shouldFilterMessageContent:shouldFilterMessageContent];
     } else if ([part.MIMEType isEqualToString:ATLMIMETypeImageJPEG] || [part.MIMEType isEqualToString:ATLMIMETypeImagePNG] || [part.MIMEType isEqualToString:ATLMIMETypeImageGIF]|| [part.MIMEType isEqualToString:ATLMIMETypeVideoMP4]) {
         size = [[self class] cellSizeForImageMessage:message];
     } else if ([part.MIMEType isEqualToString:ATLMIMETypeLocation]) {
@@ -422,7 +423,7 @@ NSInteger const kATLSharedCellTag = 1000;
     return size;
 }
 
-+ (CGSize)cellSizeForTextMessage:(LYRMessage *)message inView:(id)view
++ (CGSize)cellSizeForTextMessage:(LYRMessage *)message inView:(id)view shouldFilterMessageContent:(BOOL)shouldFilterMessageContent
 {
     //  Adding  the view to the hierarchy so that UIAppearance property values will be set based on containment.
     ATLMessageCollectionViewCell *cell = [self sharedCell];
@@ -436,7 +437,13 @@ NSInteger const kATLSharedCellTag = 1000;
     if (!font) {
         font = cell.messageTextFont;
     }
-    CGSize size = ATLTextPlainSize(text, font);
+    
+    NSString *filteredText = text;
+    if (shouldFilterMessageContent == YES) {
+        filteredText = [self class_filterMessage:text];
+    }
+    
+    CGSize size = ATLTextPlainSize(filteredText, font);
     size.width += ATLMessageBubbleLabelHorizontalPadding * 2 + ATLMessageBubbleLabelWidthMargin;
     size.height += ATLMessageBubbleLabelVerticalPadding * 2;
     if (![[self sharedHeightCache] objectForKey:message.identifier]) {
@@ -472,6 +479,38 @@ NSInteger const kATLSharedCellTag = 1000;
         }
     }
     return size;
+}
+
+#pragma mark - Regex
+
+- (NSString *)filterMessage:(NSString *)layerMessage {
+    if (self.shouldFilterMessageContent == NO) {
+        return layerMessage;
+    }
+    return [ATLMessageCollectionViewCell class_filterMessage:layerMessage];
+}
+    
++ (NSString *)class_filterMessage:(NSString *)layerMessage {
+    if (layerMessage == nil || [layerMessage isEqual:[NSNull null]]) {
+        return @"";
+    }
+    
+    NSString *message = [layerMessage stringByReplacingOccurrencesOfString:@"dot" withString:@"."];
+    
+    NSError *error;
+    NSRegularExpression *phoneExpression = [NSRegularExpression regularExpressionWithPattern:@"(\\+*(\\d|one|0ne|two|tw0|three|four|f0ur|five|f1ve|six|s1x|seven|eight|n1ne|n1n3|zero|zer0){1,2}\\s*)?\\(?(\\d|one|0ne|two|tw0|three|four|f0ur|five|f1ve|six|s1x|seven|eight|n1ne|n1n3|zero|zer0|\\s){3,6}\\)?[\\s.-]?(\\d|one|0ne|two|tw0|three|four|f0ur|five|f1ve|six|s1x|seven|eight|n1ne|n1n3|zero|zer0|\\s){3,6}[\\s.-]?(\\d|one|0ne|two|tw0|three|four|f0ur|five|f1ve|six|s1x|seven|eight|n1ne|n1n3|zero|zer0|\\s){4,7}" options:NSRegularExpressionCaseInsensitive error:&error];
+    message = [phoneExpression stringByReplacingMatchesInString:message options:0 range:NSMakeRange(0, message.length) withTemplate:@"▚▚▚▚▚▚▚▚▚▚"];
+  
+    NSRegularExpression *emailExpression = [NSRegularExpression regularExpressionWithPattern:@"\\S+\s*(@|at)\s*(\S+\s*\.\s*\S+|gmail|yahoo|aol)" options:NSRegularExpressionCaseInsensitive error:&error];
+    message = [emailExpression stringByReplacingMatchesInString:message options:0 range:NSMakeRange(0, message.length) withTemplate:@"▚▚▚▚▚▚▚▚▚▚"];
+    
+    NSRegularExpression *linkExpression = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\\s*\\.(com|co|net|org|club)\\b([-a-zA-Z0-9@:%_+.~#?&//=]*)" options:NSRegularExpressionCaseInsensitive error:&error];
+    message = [linkExpression stringByReplacingMatchesInString:message options:0 range:NSMakeRange(0, message.length) withTemplate:@"▚▚▚▚▚▚▚▚▚▚"];
+    
+    NSRegularExpression *paymentExpression = [NSRegularExpression regularExpressionWithPattern:@"(cash|paypal|pay pal|venmo|applepay|apple pay)" options:NSRegularExpressionCaseInsensitive error:&error];
+    message = [paymentExpression stringByReplacingMatchesInString:message options:0 range:NSMakeRange(0, message.length) withTemplate:@"▚▚▚▚▚▚▚▚▚▚"];
+    
+	return message;
 }
 
 @end

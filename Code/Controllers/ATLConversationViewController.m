@@ -504,9 +504,9 @@ static NSInteger const ATLPhotoActionSheet = 1000;
 {
     LYRMessage *message = [self.conversationDataSource messageAtCollectionViewIndexPath:indexPath];
     if ([message.sender.userID isEqualToString:self.layerClient.authenticatedUser.userID]) {
-        return [ATLOutgoingMessageCollectionViewCell cellHeightForMessage:message inView:self.view];
+        return [ATLOutgoingMessageCollectionViewCell cellHeightForMessage:message inView:self.view shouldFilterMessageContent:self.shouldFilterMessageContent];
     } else {
-        return [ATLIncomingMessageCollectionViewCell cellHeightForMessage:message inView:self.view];
+        return [ATLIncomingMessageCollectionViewCell cellHeightForMessage:message inView:self.view shouldFilterMessageContent:self.shouldFilterMessageContent];
     }
 }
 

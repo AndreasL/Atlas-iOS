@@ -300,6 +300,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL shouldDisplayAvatarItemForAuthenticatedUser;
 
 /**
+ @abstract A Boolean value that determines whether phone numbers, emails and links are filtered from message content
+ @default `NO`.
+ */
+@property (nonatomic) BOOL shouldFilterMessageContent;
+
+/**
  @abstract An Enum value that determines how often avatar items should be shown next to messages.
  @default 'ATLAvatarItemDisplayFrequencySection'.
  */

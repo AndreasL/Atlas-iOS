@@ -53,6 +53,12 @@ extern CGFloat const ATLMessageCellHorizontalMargin;
 @property (nonatomic) LYRMessage *message;
 
 /**
+ @abstract A Boolean value that determines whether phone numbers, emails and links are filtered from message content
+ @default `NO`.
+ */
+@property (nonatomic) BOOL shouldFilterMessageContent;
+
+/**
  @abstract Configures the message bubble's width.
  */
 - (void)updateBubbleWidth:(CGFloat)bubbleWidth;

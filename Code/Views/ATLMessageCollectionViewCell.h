@@ -67,7 +67,9 @@ extern NSString *const ATLVideoAccessibilityLabel;
  @param view The view where the cell will be displayed.
  @return The height for the cell.
  */
-+ (CGFloat)cellHeightForMessage:(LYRMessage *)message inView:(UIView *)view;
++ (CGFloat)cellHeightForMessage:(LYRMessage *)message inView:(UIView *)view shouldFilterMessageContent:(BOOL)shouldFilterMessageContent;
+
++ (NSString *)class_filterMessage:(NSString *)layerMessage;
 
 @end
 NS_ASSUME_NONNULL_END
