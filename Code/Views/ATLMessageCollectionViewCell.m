@@ -501,10 +501,10 @@ NSInteger const kATLSharedCellTag = 1000;
     NSRegularExpression *phoneExpression = [NSRegularExpression regularExpressionWithPattern:@"(\\+*(\\d|one|0ne|two|tw0|three|four|f0ur|five|f1ve|six|s1x|seven|eight|n1ne|n1n3|zero|zer0){1,2}\\s*)?\\(?(\\d|one|0ne|two|tw0|three|four|f0ur|five|f1ve|six|s1x|seven|eight|n1ne|n1n3|zero|zer0|\\s){3,6}\\)?[\\s.-]?(\\d|one|0ne|two|tw0|three|four|f0ur|five|f1ve|six|s1x|seven|eight|n1ne|n1n3|zero|zer0|\\s){3,6}[\\s.-]?(\\d|one|0ne|two|tw0|three|four|f0ur|five|f1ve|six|s1x|seven|eight|n1ne|n1n3|zero|zer0|\\s){4,7}" options:NSRegularExpressionCaseInsensitive error:&error];
     message = [phoneExpression stringByReplacingMatchesInString:message options:0 range:NSMakeRange(0, message.length) withTemplate:@"▚▚▚▚▚▚▚▚▚▚"];
   
-    NSRegularExpression *emailExpression = [NSRegularExpression regularExpressionWithPattern:@"\\S+\s*(@|at)\s*(\S+\s*\.\s*\S+|gmail|yahoo|aol)" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *emailExpression = [NSRegularExpression regularExpressionWithPattern:@"\\S+\s*(@|\s+at)\s*(\S+\s*\.\s*\S+|gmail|yahoo|aol)" options:NSRegularExpressionCaseInsensitive error:&error];
     message = [emailExpression stringByReplacingMatchesInString:message options:0 range:NSMakeRange(0, message.length) withTemplate:@"▚▚▚▚▚▚▚▚▚▚"];
     
-    NSRegularExpression *linkExpression = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\\s*\\.(com|co|net|org|club)\\b([-a-zA-Z0-9@:%_+.~#?&//=]*)" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSRegularExpression *linkExpression = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\\s*\\.(com|co|net|org|club|lt|me)\\b([-a-zA-Z0-9@:%_+.~#?&//=]*)" options:NSRegularExpressionCaseInsensitive error:&error];
     message = [linkExpression stringByReplacingMatchesInString:message options:0 range:NSMakeRange(0, message.length) withTemplate:@"▚▚▚▚▚▚▚▚▚▚"];
     
     NSRegularExpression *paymentExpression = [NSRegularExpression regularExpressionWithPattern:@"(cash|paypal|pay pal|venmo|applepay|apple pay)" options:NSRegularExpressionCaseInsensitive error:&error];
