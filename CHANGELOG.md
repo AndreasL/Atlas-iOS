@@ -1,5 +1,11 @@
 # Atlas Changelog
 
+## 1.1.5
+
+### Bug Fixes
+
+* Fixes an error when installing Atlas via Carthage.
+
 ## 1.1.4
 
 ### Bug fixes

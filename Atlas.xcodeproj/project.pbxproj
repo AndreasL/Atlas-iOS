@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1575B4671FE91ECA00269488 /* UICollectionView+ATLHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 150813751FD826AB0069802E /* UICollectionView+ATLHelpers.m */; };
+		1575B4681FE91ECE00269488 /* UIMutableUserNotificationAction+ATLHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 150813741FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.m */; };
+		1575B4691FE91ED100269488 /* UIView+ATLHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 150813731FD826AB0069802E /* UIView+ATLHelpers.m */; };
+		1575B46A1FE91EE300269488 /* UIView+ATLHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 150813761FD826AB0069802E /* UIView+ATLHelpers.h */; };
+		1575B46B1FE91EE600269488 /* UIMutableUserNotificationAction+ATLHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 150813721FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.h */; };
+		1575B46C1FE91EE800269488 /* UICollectionView+ATLHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 150813771FD826AC0069802E /* UICollectionView+ATLHelpers.h */; };
 		3DA2FAC31F1E9DAE00E890FA /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 7858B60C1CE54BBE007795AB /* block.png */; };
 		3DA2FAC41F1E9DAE00E890FA /* block@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7858B60D1CE54BBE007795AB /* block@2x.png */; };
 		3DA2FAC51F1E9DAE00E890FA /* block@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7858B60E1CE54BBE007795AB /* block@3x.png */; };
@@ -242,6 +248,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		150813721FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIMutableUserNotificationAction+ATLHelpers.h"; sourceTree = "<group>"; };
+		150813731FD826AB0069802E /* UIView+ATLHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ATLHelpers.m"; sourceTree = "<group>"; };
+		150813741FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIMutableUserNotificationAction+ATLHelpers.m"; sourceTree = "<group>"; };
+		150813751FD826AB0069802E /* UICollectionView+ATLHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+ATLHelpers.m"; sourceTree = "<group>"; };
+		150813761FD826AB0069802E /* UIView+ATLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ATLHelpers.h"; sourceTree = "<group>"; };
+		150813771FD826AC0069802E /* UICollectionView+ATLHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ATLHelpers.h"; sourceTree = "<group>"; };
 		1886043CF840E83E9A77B78B /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		250C5EF21C7656610084EB18 /* LayerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LayerKit.framework; path = Carthage/Build/iOS/LayerKit.framework; sourceTree = "<group>"; };
 		34C06B1C4F6FE86629A3C050 /* Pods-test-ProgrammaticTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test-ProgrammaticTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-test-ProgrammaticTests/Pods-test-ProgrammaticTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -551,6 +563,12 @@
 		3DA2FAF51F1E9DF500E890FA /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				150813771FD826AC0069802E /* UICollectionView+ATLHelpers.h */,
+				150813751FD826AB0069802E /* UICollectionView+ATLHelpers.m */,
+				150813721FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.h */,
+				150813741FD826AB0069802E /* UIMutableUserNotificationAction+ATLHelpers.m */,
+				150813761FD826AB0069802E /* UIView+ATLHelpers.h */,
+				150813731FD826AB0069802E /* UIView+ATLHelpers.m */,
 				3DA2FAF61F1E9DF500E890FA /* ATLConstants.h */,
 				3DA2FAF71F1E9DF500E890FA /* ATLConstants.m */,
 				3DA2FAF81F1E9DF500E890FA /* ATLErrors.h */,
@@ -905,6 +923,7 @@
 				3DA2FB6A1F1E9DF500E890FA /* ATLConversationCollectionViewFooter.h in Headers */,
 				3DA2FB561F1E9DF500E890FA /* ATLMessagingUtilities.h in Headers */,
 				3DA2FB7C1F1E9DF500E890FA /* ATLMessageInputToolbar.h in Headers */,
+				1575B46C1FE91EE800269488 /* UICollectionView+ATLHelpers.h in Headers */,
 				3DA2FB451F1E9DF500E890FA /* ATLMediaAttachment.h in Headers */,
 				3DA2FB6C1F1E9DF500E890FA /* ATLConversationCollectionViewHeader.h in Headers */,
 				3DA2FB391F1E9DF500E890FA /* ATLConversationListViewController.h in Headers */,
@@ -926,6 +945,7 @@
 				3DA2FB7E1F1E9DF500E890FA /* ATLOutgoingMessageCollectionViewCell.h in Headers */,
 				3DA2FB3F1F1E9DF500E890FA /* ATLTypingIndicatorViewController.h in Headers */,
 				3DA2FB4C1F1E9DF500E890FA /* ATLParticipant.h in Headers */,
+				1575B46B1FE91EE600269488 /* UIMutableUserNotificationAction+ATLHelpers.h in Headers */,
 				3DA2FB431F1E9DF500E890FA /* ATLDataSourceChange.h in Headers */,
 				3DA2FB471F1E9DF500E890FA /* ATLParticipantTableDataSet.h in Headers */,
 				3DA2FB681F1E9DF500E890FA /* ATLConversationCollectionView.h in Headers */,
@@ -935,6 +955,7 @@
 				3DA2FB701F1E9DF500E890FA /* ATLConversationTableViewCell.h in Headers */,
 				3DA2FB641F1E9DF500E890FA /* ATLAvatarView.h in Headers */,
 				3DA2FB621F1E9DF500E890FA /* ATLAddressBarView.h in Headers */,
+				1575B46A1FE91EE300269488 /* UIView+ATLHelpers.h in Headers */,
 				3DA2FB5A1F1E9DF500E890FA /* LYRIdentity+ATLParticipant.h in Headers */,
 				3DA2FB5C1F1E9DF500E890FA /* UIResponder+ATLFirstResponder.h in Headers */,
 				3DA2FB501F1E9DF500E890FA /* ATLErrors.h in Headers */,
@@ -1493,9 +1514,11 @@
 				3DA2FB511F1E9DF500E890FA /* ATLErrors.m in Sources */,
 				3DA2FB751F1E9DF500E890FA /* ATLIncomingMessageCollectionViewCell.m in Sources */,
 				3DA2FB7F1F1E9DF500E890FA /* ATLOutgoingMessageCollectionViewCell.m in Sources */,
+				1575B4671FE91ECA00269488 /* UICollectionView+ATLHelpers.m in Sources */,
 				3DA2FB851F1E9DF500E890FA /* ATLPlayView.m in Sources */,
 				3DA2FB531F1E9DF500E890FA /* ATLLocationManager.m in Sources */,
 				3DA2FB651F1E9DF500E890FA /* ATLAvatarView.m in Sources */,
+				1575B4691FE91ED100269488 /* UIView+ATLHelpers.m in Sources */,
 				3DA2FB6F1F1E9DF500E890FA /* ATLConversationCollectionViewMoreMessagesHeader.m in Sources */,
 				3DA2FB6D1F1E9DF500E890FA /* ATLConversationCollectionViewHeader.m in Sources */,
 				3DA2FB671F1E9DF500E890FA /* ATLBaseCollectionViewCell.m in Sources */,
@@ -1505,6 +1528,7 @@
 				3DA2FB811F1E9DF500E890FA /* ATLParticipantSectionHeaderView.m in Sources */,
 				3DA2FB5F1F1E9DF500E890FA /* ATLAddressBarContainerView.m in Sources */,
 				3DA2FB591F1E9DF500E890FA /* ATLUIImageHelper.m in Sources */,
+				1575B4681FE91ECE00269488 /* UIMutableUserNotificationAction+ATLHelpers.m in Sources */,
 				3DA2FB791F1E9DF500E890FA /* ATLMessageCollectionViewCell.m in Sources */,
 				3DA2FB771F1E9DF500E890FA /* ATLMessageBubbleView.m in Sources */,
 				3DA2FB3E1F1E9DF500E890FA /* ATLParticipantTableViewController.m in Sources */,
@@ -1665,6 +1689,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Pods/LayerKit",
 					"../releases-ios/**",
+					"../../Build/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1718,6 +1743,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/Pods/LayerKit",
 					"../releases-ios/**",
+					"../../Build/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
